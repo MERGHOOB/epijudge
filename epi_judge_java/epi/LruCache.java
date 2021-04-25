@@ -66,6 +66,7 @@ public class LruCache {
   }
 
   public static void main(String[] args) {
+    System.out.println("hi");
     System.exit(
         GenericTest
             .runFromAnnotations(args, "LruCache.java",
