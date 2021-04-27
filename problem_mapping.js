@@ -2504,7 +2504,7 @@ problem_mapping = {
                 "total": 71
             },
             "Java: DeadlockDetection.java": {
-                "passed": 0,
+                "passed": 71,
                 "total": 71
             },
             "Python: deadlock_detection.py": {
