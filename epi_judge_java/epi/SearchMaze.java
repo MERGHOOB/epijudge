@@ -40,9 +40,43 @@ public class SearchMaze {
 
   public static List<Coordinate> searchMaze(List<List<Color>> maze,
                                             Coordinate s, Coordinate e) {
-    // TODO - you fill in here.
-    return Collections.emptyList();
+
+    List<Coordinate> path = new ArrayList<>();
+    maze.get(s.x).set(s.y, Color.BLACK);
+    path.add(s);
+    if(!searchMazeHelper(maze, s, e, path)) {
+      path.remove(path.size()-1);
+    }
+
+
+    return path;
   }
+
+  private static boolean searchMazeHelper(List<List<Color>> maze, Coordinate curr, Coordinate e, List<Coordinate> path) {
+    if(curr.equals(e)) {
+      return true;
+    }
+
+    final int[][] SHIFT = {{0,1}, {1,0}, {0,-1}, {-1,0}};
+    for(int [] shift: SHIFT) {
+      Coordinate next = new Coordinate(curr.x + shift[0], curr.y + shift[1]);
+      if(isFeasible(next, maze)) {
+        maze.get(next.x).set(next.y, Color.BLACK);
+        path.add(next);
+        if(searchMazeHelper(maze, next, e, path)) {
+          return true;
+        }
+        path.remove(path.size()-1);
+      }
+    }
+    return false;
+  }
+
+  private static boolean isFeasible(Coordinate next, List<List<Color>> maze) {
+    return next.x >=0 && next.x < maze.size() && next.y >=0 && next.y < maze.get(next.x).size()
+            && maze.get(next.x).get(next.y) == Color.WHITE;
+  }
+
   public static boolean pathElementIsFeasible(List<List<Integer>> maze,
                                               Coordinate prev, Coordinate cur) {
     if (!(0 <= cur.x && cur.x < maze.size() && 0 <= cur.y &&
